@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 
 class AllItemController extends Controller
 {
+    // get api data
     public function index()
     {
-        $items=Item::all();
-        //$categories=Category::all();
-        return view('index',compact('items'));
+       $apiItems = Http::get('http://127.0.0.1:8000/api/item')->json();
+       return view('');
     }
 
-    public function show(Item $item)
+    // select items equal category id
+    public function getByCategoryId($categoryId)
     {
-        return view('index',compact('item'));
+        $items = Item::where('category_id',$categoryId)->get();
+        return response()->json($items);
     }
 }

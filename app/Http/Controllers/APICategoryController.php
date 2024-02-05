@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Http;
 
 class APICategoryController extends Controller
 {
@@ -12,14 +13,6 @@ class APICategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //  Upload File with API
-    public function upload(Request $request)
-    {
-
-        //$result=$request->file('file')->store('apiDocs');// project folder\storage\app\apiDocs
-        $result=$request->file->store('apiDocs');
-        return ['result'=>$result];
-    }
     public function index()
     {
         $categories = Category::all();
@@ -120,4 +113,21 @@ class APICategoryController extends Controller
         }
         return response()->json('Category not found');
     }
+
+      //  Upload File with API
+      public function upload(Request $request)
+      {
+
+          //$result=$request->file('file')->store('apiDocs');// project folder\storage\app\apiDocs
+          $result=$request->file->store('apiDocs');
+          return ['result'=>$result];
+      }
+      public function getAPIData()
+      {
+
+        $categories = Http::get('http://127.0.0.1:8000/api/category');
+        $apicategories = $categories->json();
+        return $apicategories;
+        //return view('api.apiCategory',$apicategories);
+      }
 }

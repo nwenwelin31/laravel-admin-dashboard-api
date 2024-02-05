@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AllItemController;
+use App\Http\Controllers\APICategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,7 @@ Route::middleware('auth')->group(function(){
 Route::get('/', function () {
     return view('index',['items'=>Item::all()]);
 });
+
+// get api data
+//Route::get('/apiDataCategory',[APICategoryController::class,'getAPIData']);
 

@@ -12,4 +12,8 @@ class Item extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+    public function getImageAttribute($value)
+    {
+        return asset('storage/gallery/'.$value);
+    }
 }
